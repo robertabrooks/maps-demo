@@ -21,6 +21,14 @@ $(document).ready(function() {
             map: map,
             animation: google.maps.Animation.DROP
         });
+
+        var infoWindow = new google.maps.InfoWindow();
+        infoWindow.setContent("<h2>Here I am!</h2><p>Don't you wish you were here.</p>");
+
+        google.maps.event.addListener(marker, 'click', function() {
+            console.log('marker was clicked!');
+            infoWindow.open(map, marker);
+        });
     }
 
     var center = {
@@ -45,7 +53,7 @@ $(document).ready(function() {
     if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, {
             enableHighAccuracy: true,
-            maximumAge: 100
+            maximumAge: 100000
         });
     } else {
         createMap(mapElem, center, 14);
@@ -53,3 +61,6 @@ $(document).ready(function() {
 
     createMap(mapElem, center, 14);
 }); //doc ready
+
+
+//localhost: 8000       python -m SimpleHTTPServer
